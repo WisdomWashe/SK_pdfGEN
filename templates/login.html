@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In - SAF Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/styles.css">
+    <style>
+        .signin-container {
+            max-width: 400px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: #222;
+            border-radius: 8px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .signin-container input[type="text"],
+        .signin-container input[type="password"] {
+            width: 90%;
+            padding: 0.7rem;
+            margin: 0.7rem 0;
+            border: none;
+            border-radius: 4px;
+            background: #333;
+            color: #fff;
+        }
+        .signin-container button {
+            padding: 0.7rem 2rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        .signin-container button:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">SAF Manager</div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+
+        </ul>
+    </nav>
+    <div class="signin-container">
+        <h1>Sign In</h1>
+        <form method="post" action="/login">
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+</body>
+</html>

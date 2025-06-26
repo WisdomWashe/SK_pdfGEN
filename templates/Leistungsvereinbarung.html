@@ -1,0 +1,174 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - SAF Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">SAF Manager</div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/rechnung">Rechnung</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Generate Leistungsvereinbarung</h1>
+        <p>Welcome, Admin! Here you can generate a filled Service Agreement.</p>
+
+
+        <form method="post" action="/fill">
+            <input type="hidden" name="template" value="Leistungsvereinbarung.pdf">
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address"><br>
+
+            <label for="house_number">House Number:</label>
+            <input type="text" id="house_number" name="house_number"><br>
+
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country"><br>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date"><br>
+
+            <label for="invoice_number">Invoice Number:</label>
+            <input type="text" id="invoice_number" name="invoice_number"><br>
+
+            <label for="safari_number">Safari Number:</label>
+            <input type="text" id="safari_number" name="safari_number"><br>
+
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description"><br>
+
+            <label for="duration_date">Duration Date:</label>
+            <input type="text" id="duration_date" name="duration_date"><br>
+
+            <label for="pickup">Pickup:</label>
+            <input type="text" id="pickup" name="pickup"><br>
+
+            <label for="people">People:</label>
+            <input type="text" id="people" name="people"><br>
+
+            <label for="overnights">Overnights:</label>
+            <input type="text" id="overnights" name="overnights"><br>
+
+            <label for="inclusive">Inclusive:</label>
+            <input type="text" id="inclusive" name="inclusive"><br>
+
+            <label for="totalprice_deposit">Total Price/Deposit:</label>
+            <input type="text" id="totalprice_deposit" name="totalprice_deposit"><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+    </div>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Leistungsvereinbarung - SAF Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">SAF Manager</div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/rechnung">Rechnung</a></li>
+            <li><a href="/Leistungsvereinbarung">Leistungsvereinbarung</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Generate Leistungsvereinbarung</h1>
+        <p>Welcome, Admin! Generate a filled Service Agreement below.</p>
+
+        <form id="pdfForm-vereinbarung">
+            <input type="hidden" name="template" value="Leistungsvereinbarung.pdf">
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address"><br>
+
+            <label for="house_number">House Number:</label>
+            <input type="text" id="house_number" name="house_number"><br>
+
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country"><br>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date"><br>
+
+            <label for="invoice_number">Invoice Number:</label>
+            <input type="text" id="invoice_number" name="invoice_number"><br>
+
+            <label for="safari_number">Safari Number:</label>
+            <input type="text" id="safari_number" name="safari_number"><br>
+
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description"><br>
+
+            <label for="duration_date">Duration Date:</label>
+            <input type="text" id="duration_date" name="duration_date"><br>
+
+            <label for="pickup">Pickup:</label>
+            <input type="text" id="pickup" name="pickup"><br>
+
+            <label for="people">People:</label>
+            <input type="text" id="people" name="people"><br>
+
+            <label for="overnights">Overnights:</label>
+            <input type="text" id="overnights" name="overnights"><br>
+
+            <label for="inclusive">Inclusive:</label>
+            <input type="text" id="inclusive" name="inclusive"><br>
+
+            <label for="totalprice_deposit">Total Price/Deposit:</label>
+            <input type="text" id="totalprice_deposit" name="totalprice_deposit"><br>
+
+            <button type="submit">Generate PDF</button>
+        </form>
+    </div>
+
+    <script>
+    document.getElementById('pdfForm-vereinbarung').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+
+        await fetch('/submit', {
+            method: 'POST',
+            body: formData
+        });
+
+        const response = await fetch('/fill', {
+            method: 'POST',
+            body: formData
+        });
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "Leistungsvereinbarung_filled.pdf";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    });
+    </script>
+</body>
+</html>
